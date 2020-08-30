@@ -25,4 +25,8 @@ module.exports.authors = {
     db.get(authorsKey).push(newAuthor).write();
     return newAuthor;
   },
+
+  findById: (id) => {
+    return db.get(authorsKey).find({ id: id }).value();
+  },
 };
