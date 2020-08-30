@@ -1,13 +1,28 @@
+const { v4: uuid } = require("uuid");
 const db = require("./bootstrap");
+
+const booksKey = "books";
+const authorsKey = "authors";
 
 module.exports.books = {
   getAll: () => {
-    return db.get("books");
+    return db.get(booksKey);
   },
 };
 
 module.exports.authors = {
   getAll: () => {
-    return db.get("authors");
+    return db.get(authorsKey);
+  },
+
+  store: ({ firstName, lastName }) => {
+    const newAuthor = {
+      firstName,
+      lastName,
+      id: uuid(),
+    };
+
+    db.get(authorsKey).push(newAuthor).write();
+    return newAuthor;
   },
 };
