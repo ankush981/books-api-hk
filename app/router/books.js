@@ -7,6 +7,20 @@ router.get("/books", (req, res) => {
   res.json(booksDb.getAll());
 });
 
+router.get("/book/:id", (req, res) => {
+  const id = req.params.id;
+  const book = booksDb.find({ id });
+
+  if (!book) {
+    res.status(404).json();
+  }
+
+  const author = authorsDb.find({ id: book.author });
+  const bookWithAuthor = { ...book, author };
+
+  res.status(200).json(bookWithAuthor);
+});
+
 router.post("/book", (req, res) => {
   if (!req.body.name || !req.body.isbn || !req.body.author) {
     res.status(422).json({
