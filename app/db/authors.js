@@ -19,13 +19,7 @@ module.exports = {
   },
 
   update: (id, author) => {
-    authorsDb
-      .find({ id })
-      .assign({
-        firstName: author.firstName,
-        lastName: author.lastName,
-      })
-      .write();
+    authorsDb.find({ id }).assign(author).write();
   },
 
   find: (query) => {

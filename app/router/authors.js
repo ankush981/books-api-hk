@@ -47,6 +47,7 @@ router.put("/author/:id", (req, res) => {
   }
 
   authorsDb.update(id, {
+    ...author,
     firstName: req.body.firstName,
     lastName: req.body.lastName,
   });
