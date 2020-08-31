@@ -18,6 +18,16 @@ module.exports = {
     return newAuthor;
   },
 
+  update: (id, author) => {
+    authorsDb
+      .find({ id })
+      .assign({
+        firstName: author.firstName,
+        lastName: author.lastName,
+      })
+      .write();
+  },
+
   find: (query) => {
     return authorsDb.find(query).value();
   },
