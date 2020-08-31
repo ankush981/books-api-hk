@@ -8,6 +8,17 @@ module.exports.books = {
   getAll: () => {
     return db.get(booksKey);
   },
+
+  store: ({ name, isbn, author }) => {
+    const newBook = {
+      name,
+      isbn,
+      author,
+    };
+
+    db.get(booksKey).push(newBook).write();
+    return newBook;
+  },
 };
 
 module.exports.authors = {
