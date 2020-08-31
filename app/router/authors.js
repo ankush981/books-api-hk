@@ -10,7 +10,7 @@ router.get("/author/:id", (req, res) => {
   let statusCode = 200;
   let responseData = {};
   const id = req.params.id;
-  const author = authorsDb.findById(id);
+  const author = authorsDb.find({ id });
 
   if (!author) {
     statusCode = 404;

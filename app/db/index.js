@@ -41,7 +41,7 @@ module.exports.authors = {
     return newAuthor;
   },
 
-  findById: (id) => {
-    return db.get(authorsKey).find({ id: id }).value();
+  find: (query) => {
+    return db.get(authorsKey).find(query).value();
   },
 };
