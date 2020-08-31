@@ -54,4 +54,34 @@ router.post("/book", (req, res) => {
   res.status(201).json(newBook);
 });
 
+router.put("/book/:id", (req, res) => {
+  const id = req.params.id;
+  const book = booksDb.find({ id });
+
+  if (!book) {
+    res.status(404).json();
+  }
+
+  if (!req.body.name || !req.body.isbn || !req.body.author) {
+    res.status(422).json({
+      message: "Please provide name, isbn, and author id",
+    });
+  }
+
+  const author = authorsDb.find({ id: req.body.author });
+
+  if (!author) {
+    res.status(422).json({
+      message: "Invalid author id",
+    });
+  }
+
+  booksDb.update(id, {
+    name: req.body.name,
+    isbn: req.body.isbn,
+    author: req.body.author,
+  });
+  res.status(200).json();
+});
+
 module.exports = router;

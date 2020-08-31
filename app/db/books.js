@@ -19,6 +19,10 @@ module.exports = {
     return newBook;
   },
 
+  update: (id, book) => {
+    booksDb.find({ id }).assign(book).write();
+  },
+
   find: (query) => {
     return booksDb.find(query).value();
   },
