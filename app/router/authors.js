@@ -7,38 +7,29 @@ router.get("/authors", (req, res) => {
 });
 
 router.get("/author/:id", (req, res) => {
-  let statusCode = 200;
-  let responseData = {};
   const id = req.params.id;
   const author = authorsDb.find({ id });
 
   if (!author) {
-    statusCode = 404;
-  } else {
-    responseData = author;
+    res.status(404).json();
   }
 
-  res.status(statusCode).json(responseData);
+  res.status(200).json(author);
 });
 
 router.post("/author", (req, res) => {
-  let statusCode = 201;
-  let responseData = {};
-
   if (!req.body.firstName || !req.body.lastName) {
-    statusCode = 422;
-    responseData = {
+    res.status(422).json({
       message: "Please provide first name and last name",
-    };
-  } else {
-    const newAuthor = authorsDb.store({
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
     });
-    responseData = newAuthor;
   }
 
-  res.status(statusCode).json(responseData);
+  const newAuthor = authorsDb.store({
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+  });
+
+  res.status(201).json(newAuthor);
 });
 
 module.exports = router;
