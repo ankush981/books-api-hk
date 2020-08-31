@@ -19,6 +19,10 @@ module.exports.books = {
     db.get(booksKey).push(newBook).write();
     return newBook;
   },
+
+  find: (query) => {
+    return db.get(booksKey).find(query).value();
+  },
 };
 
 module.exports.authors = {

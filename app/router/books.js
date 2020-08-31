@@ -22,12 +22,21 @@ router.post("/book", (req, res) => {
     });
   }
 
-  const newBook = booksDb.store({
+  const newBookParams = {
     name: req.body.name,
     isbn: req.body.isbn,
     author: req.body.author,
-  });
+  };
 
+  const existingBook = booksDb.find(newBookParams);
+
+  if (existingBook) {
+    res.status(422).json({
+      message: "Book already exists",
+    });
+  }
+
+  const newBook = booksDb.store(newBookParams);
   res.status(201).json(newBook);
 });
 
