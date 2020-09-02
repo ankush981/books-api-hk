@@ -28,7 +28,7 @@ router.post("/book", (req, res) => {
     });
   }
 
-  const author = authorsDb.findById(req.body.author);
+  const author = authorsDb.find({ id: req.body.author });
 
   if (!author) {
     res.status(422).json({
